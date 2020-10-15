@@ -2,11 +2,12 @@
 using System;
 using System.Collections.Generic;
 
-namespace ConsoleApp1
+namespace Entrega_1
 {
     class Program
     {
         static Agencia laAgencia = new Agencia();
+
         static void Main(string[] args)
         {
             bool leave = false;
@@ -49,11 +50,18 @@ namespace ConsoleApp1
             Console.WriteLine("3-modificar cotizacion del dolar");
             Console.WriteLine("4-visualizar las excursiones");
             Console.WriteLine("5-visualizar excursiones que vayan a un destino dado entre dos fechas");
+            Console.WriteLine();
             Console.WriteLine("0-salir");
-
         }
 
-
+        private static void MostrarTitulo(string title)
+        {
+            string line = "*************************";
+            Console.WriteLine();
+            Console.WriteLine(line);
+            Console.WriteLine(title);
+            Console.WriteLine(line);
+        }
 
         private static void ExcursionesEntreFechas()
         {
@@ -69,12 +77,10 @@ namespace ConsoleApp1
                     Console.WriteLine("esa o es una opcion valida");
                 }
 
-            };
+            }
             string ciudad = "";
             string pais = "";
             int idABuscar;
-
-            
 
             DateTime desde = PedirFecha("Ingrese fecha desde dd/mm/yyyy");
             DateTime hasta = PedirFecha("Ingrese fecha hasta dd/mm/yyyy");
@@ -224,15 +230,6 @@ namespace ConsoleApp1
             Console.WriteLine(mensaje);
             string texto = Console.ReadLine();
             return texto;
-        }
-
-        private static void MostrarTitulo(string title)
-        {
-            string line = "*************************";
-            Console.WriteLine();
-            Console.WriteLine(line);
-            Console.WriteLine(title);
-            Console.WriteLine(line);
         }
     }
 }
