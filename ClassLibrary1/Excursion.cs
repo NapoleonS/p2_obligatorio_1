@@ -17,8 +17,14 @@ namespace Dominio
         private int diasTraslado = 0;
         private int stock = 0;
 
+        public int Id
+        {
+            get { return id; }
+        }
+
         public Excursion(string descripcion, DateTime fechaComienzo, List<Destino> destinos, int diasTraslado, int stock)
         {
+            this.id = ultId++;
             this.descripcion = descripcion;
             this.fechaComienzo = fechaComienzo;
             this.destinos = destinos;

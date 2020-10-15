@@ -8,7 +8,7 @@ namespace Dominio
         private List<Destino> listaDestinos = new List<Destino>();
         private List<Excursion> listaExcursiones = new List<Excursion>();
         private List<CompaniaAerea> listaCompanias = new List<CompaniaAerea>();
-        private decimal cotizacion = 0;
+        private double cotizacion = 0;
 
         public List<Destino> ListarDestinos()
         {
@@ -20,7 +20,7 @@ namespace Dominio
             return aux;
         }
 
-        public List<Excursion> listarExcursiones
+        public List<Excursion> ListarExcursiones
         {
             get { return listaExcursiones; }
         }
@@ -39,6 +39,20 @@ namespace Dominio
             return destino;
         }
 
+        public Excursion BuscarExcursion(int id)
+        {
+            int i = 0;
+            Excursion excursion = null;
+            while (excursion == null && i < listaDestinos.Count)
+            {
+                if (listaExcursiones[i].Id == id)
+                {
+                    excursion = listaExcursiones[i];
+                }
+            }
+            return excursion;
+        }
+
         public List<Excursion> ExcursionesADestino(Destino destino, DateTime fecha1, DateTime fecha2)
         {
             List<Excursion> result = new List<Excursion>();
@@ -52,6 +66,98 @@ namespace Dominio
             return result;
         }
 
+        public bool AgregarExcursionNacional(string descripcion, DateTime fechaComienzo, List<Destino> destinos, int diasTraslado, int stock,bool esDeInteresNacional)
+        {
+            bool success = true;
+            foreach (var destino in destinos)
+            {
+                if (destino.Pais != "Uruguay")
+                {
+                    success = false;
+                }
+            }
+            if (success == true)
+            {
+            Nacional excursion = new Nacional(descripcion, fechaComienzo, destinos, diasTraslado, stock, esDeInteresNacional);
+            listaExcursiones.Add(excursion);
+            }
+            return success;
+        }
+
+        public bool AgregarExcursionInternacional(string descripcion, DateTime fechaComienzo, List<Destino> destinos, int diasTraslado, int stock, CompaniaAerea compania)
+        {
+            bool success = true;
+            Internacional excursion = new Internacional(descripcion, fechaComienzo, destinos, diasTraslado, stock, compania);
+            listaExcursiones.Add(excursion);
+            return success;
+        }
+
+        public void Precarga()
+        {
+
+        }
+
+        public void PrecargaExcursiones()
+        {
+            DateTime fecha;
+            List<Destino> listaDestinos = new List<Destino>();
+
+            fecha = new DateTime(2012, 12, 31);
+            AgregarCompania(1, "Estados Unidos");
+            listaDestinos.Clear();
+            listaDestinos.Add(BuscarDestino("Nueva York", "Estados Unidos"));
+            AgregarExcursionInternacional("Viaje de placer", fecha, listaDestinos, 2, 7, BuscarCompania(1));
+
+            fecha = new DateTime(2018, 12, 31);
+            listaDestinos.Clear();
+            listaDestinos.Add(BuscarDestino("Nueva York", "Estados Unidos"));
+            listaDestinos.Add(BuscarDestino("Londres", "Inglaterra"));
+            AgregarExcursionInternacional("Viaje de placer", fecha, listaDestinos, 4, 14, BuscarCompania(1));
+
+            fecha = new DateTime(2010, 10, 11);
+            listaDestinos.Clear();
+            listaDestinos.Add(BuscarDestino("Nueva York", "Estados Unidos"));
+            listaDestinos.Add(BuscarDestino("Londres", "Inglaterra"));
+            listaDestinos.Add(BuscarDestino("Roma", "Italia"));
+            AgregarExcursionInternacional("Viaje de placer", fecha, listaDestinos, 5, 21, BuscarCompania(1));
+
+            fecha = new DateTime(2012, 12, 31);
+            AgregarCompania(2, "Emiratos Arabes Unidos");
+            listaDestinos.Clear();
+            listaDestinos.Add(BuscarDestino("Dubai", "Emiratos Arabes Unidos"));
+            AgregarExcursionInternacional("Viaje de placer", fecha, listaDestinos, 2, 7, BuscarCompania(2));
+
+            fecha = new DateTime(2012, 12, 31);
+            listaDestinos.Clear();
+            listaDestinos.Add(BuscarDestino("Rocha", "Uruguay"));
+            AgregarExcursionNacional("Viaje de placer", fecha, listaDestinos, 0, 3, true);
+
+            fecha = new DateTime(2012, 12, 31);
+            listaDestinos.Clear();
+            listaDestinos.Add(BuscarDestino("Rivera", "Uruguay"));
+            listaDestinos.Add(BuscarDestino("Montevideo", "Uruguay"));
+            AgregarExcursionNacional("Viaje de placer", fecha, listaDestinos, 1, 10, true);
+
+            fecha = new DateTime(2012, 12, 31);
+            listaDestinos.Clear();
+            listaDestinos.Add(BuscarDestino("Rocha", "Uruguay"));
+            listaDestinos.Add(BuscarDestino("Punta del Este", "Uruguay"));
+            AgregarExcursionNacional("Viaje de placer", fecha, listaDestinos, 1, 10, true);
+
+            fecha = new DateTime(2012, 12, 31);
+            listaDestinos.Clear();
+            listaDestinos.Add(BuscarDestino("Rocha", "Uruguay"));
+            listaDestinos.Add(BuscarDestino("Rivera", "Uruguay"));
+            listaDestinos.Add(BuscarDestino("Montevideo", "Uruguay"));
+            listaDestinos.Add(BuscarDestino("Punta del Este", "Uruguay"));
+            AgregarExcursionNacional("Viaje de placer", fecha, listaDestinos, 2, 14, true);
+        }
+
+        public void PrecargaCotizacion()
+        {
+            ModificarCotizacion(42.59); 
+        }
+
         public bool AgregarDestino(string ciudad, string pais, int dias, decimal costoDiario)
         {
             bool success = false;
@@ -62,6 +168,19 @@ namespace Dominio
                 success = true;
             }
             return success;
+        }
+
+        public void PrecargaDestinos()
+        {
+            AgregarDestino("Nueva York", "Estados Unidos", 12, 1550);
+            AgregarDestino("Rivera", "Uruguay", 17, 750);
+            AgregarDestino("Buenos Aires", "Argentina", 11, 800);
+            AgregarDestino("Dubai", "Emiratos Arabes Unidos", 7, 2120);
+            AgregarDestino("Roma", "Italia", 7, 1820);
+            AgregarDestino("Rocha", "Uruguay", 20, 550);
+            AgregarDestino("Londres", "Inglaterra", 18, 1800);
+            AgregarDestino("Punta del Este", "Uruguay", 12, 1550);
+            AgregarDestino("Tokyo", "Japon", 7, 2200);
         }
 
         public CompaniaAerea BuscarCompania(int codigo)
@@ -90,7 +209,7 @@ namespace Dominio
             return success;
         }
 
-        public bool ModificarCotizacion(decimal nuevaCotizacion)
+        public bool ModificarCotizacion(double nuevaCotizacion)
         {
             bool success = false;
             if (nuevaCotizacion > 0)
@@ -100,5 +219,7 @@ namespace Dominio
             }
             return success;
         }
+
+       
     }
 }

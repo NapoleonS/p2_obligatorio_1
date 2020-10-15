@@ -22,6 +22,19 @@ namespace ConsoleApp1
             ShowTitle("Menu");
             
         }
+
+        private static void MensajeAlta(bool resultado)
+        {
+            if (resultado == true)
+            {
+                Console.WriteLine("--> Se dio el alta correctamente");
+            }
+            else
+            {
+                Console.WriteLine("--> No se pudo dar el alta, revise los datos ingresados");
+            }
+        }
+
         private static void ShowTitle(string title)
         {
             string line = "*************************";
