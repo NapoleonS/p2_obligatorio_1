@@ -36,5 +36,10 @@ namespace Dominio
         {
             get { return fechaComienzo; }
         }
+
+        public override string ToString()
+        {
+            return $"id: {id}, descripcion: {descripcion}, fecha de comienzo: {fechaComienzo}, destinos: {destinos}, dias de traslado: {diasTraslado}, stock: {stock}.";
+        }
     }
 }

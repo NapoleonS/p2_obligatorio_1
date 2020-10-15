@@ -38,5 +38,10 @@ namespace Dominio
             this.costoDiario = costoDiario;
             this.dias = dias;
         }
+
+        public override string ToString()
+        {
+            return $"id: {id}, ciudad: {ciudad}, pais: {pais}, costoDiario: {costoDiario}, dias: {dias}.";
+        }
     }
 }
