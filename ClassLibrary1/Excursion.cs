@@ -38,9 +38,19 @@ namespace Dominio
             get { return fechaComienzo; }
         }
 
+        public int CalcularCosto()
+        {
+            int result = 0;
+            foreach (Destino destino in destinos)
+            {
+                result += destino.CostoDiario * destino.Dias;
+            }
+            return result;
+        }
+
         public override string ToString()
         {
-            return $"id: {id}, descripcion: {descripcion}, fecha de comienzo: {fechaComienzo}, destinos: {destinos}, dias de traslado: {diasTraslado}, stock: {stock}.";
+            return $"id: {id}, descripcion: {descripcion}, fecha de comienzo: {fechaComienzo}, destinos: {destinos}, dias de traslado: {diasTraslado}, stock: {stock}, costo: {CalcularCosto()}.";
         }
     }
 }

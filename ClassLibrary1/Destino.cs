@@ -30,6 +30,16 @@ namespace Dominio
             get { return ciudad; }
         }
 
+        public int CostoDiario
+        {
+            get { return costoDiario; }
+        }
+
+        public int Dias
+        {
+            get { return Dias; }
+        }
+
         public Destino(string ciudad, string pais, int dias, int costoDiario)
         {
             this.id = ultId++;
