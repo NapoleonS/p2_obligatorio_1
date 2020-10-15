@@ -75,6 +75,7 @@ namespace Entrega_1
                 } else
                 {
                     Console.WriteLine("esa o es una opcion valida");
+                    option = PedirNumeroEntero("presione 1 si conoce el identificador del destino/presione dos para elegir por ciudad y pais");
                 }
 
             }
@@ -195,12 +196,12 @@ namespace Entrega_1
 
         private static double PedirNumeroDecimal(string mensaje = "Ingrese el numero:")
         {
-            double num;
+            int num;
             bool valido = false;
             do
             {
                 Console.WriteLine(mensaje);
-                valido = double.TryParse(Console.ReadLine(), out num);
+                valido = int.TryParse(Console.ReadLine(), out num);
                 if (!valido)
                 {
                     Console.WriteLine("Solo se admiten numeros");

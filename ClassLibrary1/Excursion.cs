@@ -10,7 +10,7 @@ namespace Dominio
     public class Excursion
     {
         private int id = 0;
-        private static int ultId = 0;
+        private static int ultId = 900;
         private string descripcion = "";
         private DateTime fechaComienzo = new DateTime();
         private List<Destino> destinos;
@@ -24,7 +24,8 @@ namespace Dominio
 
         public Excursion(string descripcion, DateTime fechaComienzo, List<Destino> destinos, int diasTraslado, int stock)
         {
-            this.id = ultId++;
+            ultId += 100;
+            this.id = ultId;
             this.descripcion = descripcion;
             this.fechaComienzo = fechaComienzo;
             this.destinos = destinos;

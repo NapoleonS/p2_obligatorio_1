@@ -12,7 +12,7 @@ namespace Dominio
         private static int ultId = 0;
         private string ciudad = "";
         private string pais = "";
-        private decimal costoDiario = 0;
+        private int costoDiario = 0;
         private int dias = 0;
 
         public int Id
@@ -30,7 +30,7 @@ namespace Dominio
             get { return ciudad; }
         }
 
-        public Destino(string ciudad, string pais, int dias, decimal costoDiario)
+        public Destino(string ciudad, string pais, int dias, int costoDiario)
         {
             this.id = ultId++;
             this.pais = pais;

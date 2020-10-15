@@ -36,6 +36,7 @@ namespace Dominio
                 {
                     destino = listaDestinos[i];
                 }
+                i++;
             }
             return destino;
         }
@@ -50,6 +51,7 @@ namespace Dominio
                 {
                     destino = listaDestinos[i];
                 }
+                i++;
             }
             return destino;
         }
@@ -64,6 +66,7 @@ namespace Dominio
                 {
                     excursion = listaExcursiones[i];
                 }
+                i++;
             }
             return excursion;
         }
@@ -175,7 +178,7 @@ namespace Dominio
             ModificarCotizacion(42.59); 
         }
 
-        public bool AgregarDestino(string ciudad, string pais, int dias, decimal costoDiario)
+        public bool AgregarDestino(string ciudad, string pais, int dias, int costoDiario)
         {
             bool success = false;
             if (BuscarDestinoPorCiudad(ciudad, pais) == null)
@@ -195,6 +198,7 @@ namespace Dominio
             AgregarDestino("Dubai", "Emiratos Arabes Unidos", 7, 2120);
             AgregarDestino("Roma", "Italia", 7, 1820);
             AgregarDestino("Rocha", "Uruguay", 20, 550);
+            AgregarDestino("Montevideo", "Uruguay", 20, 550);
             AgregarDestino("Londres", "Inglaterra", 18, 1800);
             AgregarDestino("Punta del Este", "Uruguay", 12, 1550);
             AgregarDestino("Tokyo", "Japon", 7, 2200);
@@ -204,12 +208,13 @@ namespace Dominio
         {
             int i = 0;
             CompaniaAerea compania = null;
-            while (compania == null && i < listaDestinos.Count)
+            while (compania == null && i < listaCompanias.Count)
             {
                 if (listaCompanias[i].Codigo == codigo)
                 {
                     compania = listaCompanias[i];
                 }
+                i++;
             }
             return compania;
         }
